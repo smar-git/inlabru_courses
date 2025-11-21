@@ -1,0 +1,35 @@
+name: Build and Deploy Multiple Quarto Sites
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Quarto CLI
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Render site1
+        run: quarto render site1
+
+      - name: Render site2
+        run: quarto render site2
+
+      - name: Organize output
+        run: |
+          mkdir deploy
+          mv site1/_site deploy/site1
+          mv site2/_site deploy/site2
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: deploy
