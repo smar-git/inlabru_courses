@@ -1,8 +1,18 @@
 project:
   type: website
+  render: 
+    - index.qmd
+    - slides/slides_1.qmd
 website:
-  title: "Site 2"
+  title: "inlabru Workshop "
   navbar:
+    logo: Image/INLA_logo.png
     right:
       - text: "Home"
         href: index.qmd
+    left:
+      - text: "Slides"
+        menu:
+          - text: "Slides 1"
+            href: slides/slides_1.qmd
+         
